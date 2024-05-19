@@ -2,15 +2,12 @@ export DESIGN_NAME     = ElemRVTop
 export DESIGN_NICKNAME = ElemRV
 export PLATFORM        = ihp-sg13g2
 
-export IO_DIR = $(SG13G2_IO_DIR_PATH)/ihp-sg13g2/libs.ref/sg13g2_io/
-
 export VERILOG_FILES = \
-	${ELEMRV_HOME}/src/ElemRVTop.v \
-	$(IO_DIR)/verilog/sg13g2_io.v
+	./designs/$(PLATFORM)/$(DESIGN_NICKNAME)/src/ElemRVTop.v
 export SDC_FILE = \
-	${ELEMRV_HOME}/constraint.sdc
+	./designs/$(PLATFORM)/$(DESIGN_NICKNAME)/constraint.sdc
 
-export SEAL_GDS = ${ELEMRV_HOME}/macros/sealring/sealring_1865x1867.gds
+export SEAL_GDS = ./designs/$(PLATFORM)/$(DESIGN_NICKNAME)/macros/sealring/sealring_1966x1962.gds.gz
 
 # Available area: 1920um x 1920um
 # Sealring: roughly 60um
@@ -20,8 +17,8 @@ export SEAL_GDS = ${ELEMRV_HOME}/macros/sealring/sealring_1865x1867.gds
 # Margin for core power ring: 80um
 # Total margin to core area: 330um
 # Core site: 0.48 x 3.78
-export DIE_AREA = 0 0 1865.28 1867.32
-export CORE_AREA = 330.24 332.64 1535.04 1534.68
+export DIE_AREA = 0 0 1965.12 1961.82
+export CORE_AREA = 369.12 370.44 1597.44 1591.38
 
 # Allow routing on the TopMetal layers
 export MAX_ROUTING_LAYER = TopMetal2
@@ -30,16 +27,18 @@ export USE_FILL = 1
 
 export TNS_END_PERCENT = 100
 
-export PLACE_DENSITY = 0.70
+export PLACE_DENSITY = 0.80
 
-export FOOTPRINT_TCL = ${ELEMRV_HOME}/pad.tcl
-export PDN_TCL = ${ELEMRV_HOME}/pdn.tcl
+export FOOTPRINT_TCL = ./designs/$(PLATFORM)/$(DESIGN_NICKNAME)/pad.tcl
+export PDN_TCL = ./designs/$(PLATFORM)/$(DESIGN_NICKNAME)/pdn.tcl
 
+# Following exports should be part of platforms/ihp-sg13g2/config.mk and
+# might be obsolete in the future.
 export ADDITIONAL_LEFS = \
-	$(OPENROAD_FLOW_ROOT)/platforms/$(PLATFORM)/lef/sg13g2_io.lef \
-	${ELEMRV_HOME}/macros/bondpad/bondpad_70x70.lef
+	./platforms/$(PLATFORM)/lef/sg13g2_io.lef \
+	./platforms/$(PLATFORM)/lef/bondpad_70x70.lef
 export ADDITIONAL_GDS = \
-	$(OPENROAD_FLOW_ROOT)/platforms/$(PLATFORM)/gds/sg13g2_io.gds \
-	${ELEMRV_HOME}/macros/bondpad/bondpad_70x70.gds
+	./platforms/$(PLATFORM)/gds/sg13g2_io.gds \
+	./platforms/$(PLATFORM)/gds/bondpad_70x70.gds
 export ADDITIONAL_LIBS = \
-	$(IO_DIR)/liberty/sg13g2_io_dummy.lib
+	./platforms/$(PLATFORM)/lib/sg13g2_io_dummy.lib
